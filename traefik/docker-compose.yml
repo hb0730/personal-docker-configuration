@@ -1,0 +1,21 @@
+version: "3"
+services:
+  traefik-server:
+    image: traefik:v2.6
+    container_name: traefik_server
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - ./config/static:/etc/traefik/
+      - ./config/dynamic:/path/to/config
+      - ./config/cert/:/root/cert/
+      - ./log/:/path/log/
+      - /var/run/docker.sock:/var/run/docker.sock
+networks:
+  default:
+    name: docker-net
+    external: true

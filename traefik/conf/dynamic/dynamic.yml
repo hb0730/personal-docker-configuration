@@ -29,7 +29,7 @@ http:
     auth:
       basicauth:
         users:
-          - "root:$apr1$U/J7VIZV$5pqJsSfbcDR3EP6xO4bk7."
+          - ""
   services:
     xray_service:
       loadBalancer:

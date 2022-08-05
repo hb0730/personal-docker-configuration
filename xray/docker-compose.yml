@@ -1,0 +1,13 @@
+version: '3'
+services:
+  xray_server:
+    image: teddysun/xray
+    container_name: xray_server
+    environment:
+      - "XRAY_LOCATION_CONFDIR=/etc/xray/confs"
+    command: "/usr/bin/xray"
+    volumes:
+      - ./conf:/etc/xray/confs
+    restart: unless-stopped
+    ports:
+      - 9000:9000

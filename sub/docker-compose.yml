@@ -1,0 +1,26 @@
+version: "3"
+services:
+  sub-server:
+    image: stilleshan/sub
+    container_name: sub-server
+    restart: "unless-stopped"
+    volumes:
+      - ./subweb/conf:/usr/share/nginx/html/conf
+    environment:
+      - API_URL="https://sub.vvta.cc"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=docker-net"
+      - "traefik.http.routers.sub-server.rule=Host(`sub.vvta.cc`)"
+      - "traefik.http.routers.sub-server.entrypoints=web"
+      - "traefik.http.routers.sub-server-https.rule=Host(`sub.vvta.cc`)"
+      - "traefik.http.routers.sub-server-https.entrypoints=https"
+      - "traefik.http.routers.sub-server-https.tls=true"
+      - "traefik.http.routers.sub-server-https.service=sub-service"
+      - "traefik.http.routers.sub-server.service=sub-service"
+      - "traefik.http.services.sub-service.loadbalancer.server.port=80"
+    networks:
+      - docker-net
+networks:
+  docker-net:
+    external: true

@@ -1,6 +1,6 @@
 window.config = {
   siteName: 'Subconverter Web',
-  apiUrl: '"https://sub.vvta.cc"',
+  apiUrl: 'https://sub.vvta.cc',
   menuItem: [
     {
       title: '首页',

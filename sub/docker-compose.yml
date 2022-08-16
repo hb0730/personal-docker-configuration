@@ -7,7 +7,7 @@ services:
     volumes:
       - ./subweb/conf:/usr/share/nginx/html/conf
     environment:
-      - API_URL="https://sub.vvta.cc"
+      - API_URL=https://sub.vvta.cc
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=docker-net"

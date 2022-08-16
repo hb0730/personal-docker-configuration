@@ -12,7 +12,7 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=docker-net"
       - "traefik.http.routers.sub-server.rule=Host(`sub.vvta.cc`)"
-      - "traefik.http.routers.sub-server.entrypoints=web"
+      - "traefik.http.routers.sub-server.entrypoints=http"
       - "traefik.http.routers.sub-server-https.rule=Host(`sub.vvta.cc`)"
       - "traefik.http.routers.sub-server-https.entrypoints=https"
       - "traefik.http.routers.sub-server-https.tls=true"

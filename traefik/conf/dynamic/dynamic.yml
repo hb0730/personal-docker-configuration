@@ -1,7 +1,7 @@
 http:
   routers:
     dashboard:
-      rule: "Host(`traefik.vvta.cc`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      rule: "Host(`traefik.example.cc`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       entrypoints: https
       service: api@internal
       middlewares: auth
@@ -13,13 +13,13 @@ http:
           - ""
 tls:
   certificates:
-    - certFile: /root/cert/vvta.cc/cert.pem
-      keyFile: /root/cert/vvta.cc/private.key
+    - certFile: /root/cert/example.cc/cert.pem
+      keyFile: /root/cert/example.cc/private.key
   stores:
     default:
       defaultCertificate:
-        certFile: /root/cert/vvta.cc/cert.pem
-        keyFile: /root/cert/vvta.cc/private.key
+        certFile: /root/cert/example.cc/cert.pem
+        keyFile: /root/cert/example.cc/private.key
   options:
     intermediate:
       sniStrict: true

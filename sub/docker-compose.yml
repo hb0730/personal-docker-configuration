@@ -7,13 +7,13 @@ services:
     volumes:
       - ./subweb/conf:/usr/share/nginx/html/conf
     environment:
-      - API_URL=https://sub.vvta.cc
+      - API_URL=https://sub.example.cc
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=docker-net"
-      - "traefik.http.routers.sub-server.rule=Host(`sub.vvta.cc`)"
+      - "traefik.http.routers.sub-server.rule=Host(`sub.example.cc`)"
       - "traefik.http.routers.sub-server.entrypoints=http"
-      - "traefik.http.routers.sub-server-https.rule=Host(`sub.vvta.cc`)"
+      - "traefik.http.routers.sub-server-https.rule=Host(`sub.example.cc`)"
       - "traefik.http.routers.sub-server-https.entrypoints=https"
       - "traefik.http.routers.sub-server-https.tls=true"
       - "traefik.http.routers.sub-server-https.service=sub-service"

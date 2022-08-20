@@ -1,0 +1,42 @@
+{
+  "inbounds": [
+    {
+      "port": "28443",
+      "protocol": "trojan",
+      "settings": {
+        "clients": [
+          {
+            "password": "c34d12fb-e5fc-f4ea-db56-7594ca3bf6c5",
+            "flow": "xtls-rprx-direct",
+            "level": 0
+          }
+        ],
+        "fallbacks": [
+          {
+            "alpn": "h2",
+            "dest": "traefik_server:80",
+            "xver": 1
+          },
+          {   
+            "dest": "traefik_server:80",
+            "xver": 1
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "xtls",
+        "xtlsSettings": {
+          "alpn": ["h2", "http/1.1"],
+          "certificates": [
+            {
+              "certificateFile": "/etc/ssl/acme/cert.pem",
+              "keyFile": "/etc/ssl/acme/private.key"
+            }
+          ]
+        }
+      },
+      "tag": "trojan_xtls"
+    }
+  ]
+}

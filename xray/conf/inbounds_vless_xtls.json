@@ -1,0 +1,41 @@
+{
+    "inbounds": [
+        {
+            "port": "18443",
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "2b2264ba-4477-46b1-b2f7-9b2e97922e83", 
+                        "flow": "xtls-rprx-direct",
+                        "level": 0,
+                        "email": "love@example.com"
+                    }
+                ],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "dest": "traefik_server:80", 
+                        "xver": 1
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "xtls",
+                "xtlsSettings": {
+                    "alpn": [
+                        "http/1.1"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/etc/ssl/acme/cert.pem",
+							"keyFile": "/etc/ssl/acme/private.key"
+                        }
+                    ]
+                }
+            },
+            "tag": "vless_tcp_xtls"
+        }
+    ]
+}

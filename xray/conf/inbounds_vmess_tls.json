@@ -1,0 +1,33 @@
+{
+    "inbounds": [
+        {
+            "port": "38443",
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "d81ff0e1-553e-46a5-ae6a-8ebbd476d98f"
+                    }
+                ],
+                "fallbacks": [
+				  {   
+					"dest": "traefik_server:80",
+					"xver": 1
+				  }
+				]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "tls",
+                "tlsSettings": {
+                    "certificates": [
+                        {
+						  "certificateFile": "/etc/ssl/acme/cert.pem",
+						  "keyFile": "/etc/ssl/acme/private.key"
+						}
+                    ]
+                }
+            }
+        }
+    ]
+}

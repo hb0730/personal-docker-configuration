@@ -1,40 +1,16 @@
 http:
   routers:
-    http_api:
-      rule: "Host(`traefik.vvta.cc`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
-      entrypoints: http
-      service: api@internal
-      middlewares: http_to_https
-    https_api:
+    dashboard:
       rule: "Host(`traefik.vvta.cc`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       entrypoints: https
       service: api@internal
       middlewares: auth
       tls: true
-    http_xray_xui:
-      rule: "Host(`xray.vvta.cc`)"
-      entrypoints: http
-      service: xray_service
-      middlewares: http_to_https
-    https_xray_ui:
-      rule: "Host(`xray.vvta.cc`)"
-      entrypoints: https
-      service: xray_service
-      tls: true
   middlewares:
-    http_to_https:
-      redirectscheme:
-        scheme: https
-        permanent: true
     auth:
       basicauth:
         users:
           - ""
-  services:
-    xray_service:
-      loadBalancer:
-        servers:
-          - url: http://xxxx:65432/admin
 tls:
   certificates:
     - certFile: /root/cert/vvta.cc/cert.pem
@@ -53,3 +29,9 @@ tls:
         - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
         - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
         - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+      curvePreferences:
+        - X25519
+        - CurveP384
+        - CurveP256
+      sniStrict: true
+      preferServerCipherSuites: true

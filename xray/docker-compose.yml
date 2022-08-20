@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 services:
   xray_server:
     image: teddysun/xray
@@ -7,7 +7,33 @@ services:
       - "XRAY_LOCATION_CONFDIR=/etc/xray/confs"
     command: "/usr/bin/xray"
     volumes:
-      - ./conf:/etc/xray/confs
+      - ./conf/xray:/etc/xray/confs
+      - ./conf/certs:/etc/ssl/acme
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.services.xray-vless.loadbalancer.server.port=18443"
+      - "traefik.tcp.routers.xray-vless.rule=HostSNI(`vl.vvta.cc`)"
+      - "traefik.tcp.routers.xray-vless.entrypoints=https"
+      - "traefik.tcp.routers.xray-vless.service=xray-vless"
+      - "traefik.tcp.routers.xray-vless.tls.passthrough=true"
+      - "traefik.tcp.routers.xray-vless.tls.options=intermediate@file"
+      - "traefik.tcp.services.xray-trojan.loadbalancer.server.port=28443"
+      - "traefik.tcp.routers.xray-trojan.rule=HostSNI(`tr.vvta.cc`)"
+      - "traefik.tcp.routers.xray-trojan.entrypoints=https"
+      - "traefik.tcp.routers.xray-trojan.service=xray-trojan"
+      - "traefik.tcp.routers.xray-trojan.tls.passthrough=true"
+      - "traefik.tcp.routers.xray-trojan.tls.options=intermediate@file"
+      - "traefik.tcp.services.xray-vmess.loadbalancer.server.port=38443"
+      - "traefik.tcp.routers.xray-vmess.rule=HostSNI(`vm.vvta.cc`)"
+      - "traefik.tcp.routers.xray-vmess.entrypoints=https"
+      - "traefik.tcp.routers.xray-vmess.service=xray-vmess"
+      - "traefik.tcp.routers.xray-vmess.tls.passthrough=true"
+      - "traefik.tcp.routers.xray-vmess.tls.options=intermediate@file"
     ports:
       - 9000:9000
+    networks:
+      - docker-net
+networks:
+  docker-net:
+    external: true
